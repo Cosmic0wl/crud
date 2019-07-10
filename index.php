@@ -7,6 +7,9 @@
 <html>
 <head>
    <title>PHP CRUD</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
 
    <style type ="text/css">
        .manageUser {
@@ -24,14 +27,13 @@
 </head>
 <body>
 
-<div class ="manageUser">
-   <a href= "create.php"><button type="button" >Add User</button></a>
-   <table  border="1" cellspacing= "0" cellpadding="0">
+<div class="manageUser">
+   <table  class="table">
        <thead>
            <tr>
-               <th>Name</th>
-               <th >Date of birth</th>
-               <th >Option</th>
+               <th scope="col">Name</th>
+               <th scope="col">Date of birth</th>
+               <th scope="col">Option</th>
            </tr>
        </thead>
        <tbody>
@@ -45,8 +47,8 @@
                        <td>" .$row['first_name']." ".$row['last_name' ]."</td>
                        <td>" .$row['date_of_birth']."</td>
                        <td>
-                           <a href='update.php?id=" .$row['id']."'><button type='button'>Edit</button></a>
-                           <a href='delete.php?id=" .$row['id']."'><button type='button'>Delete</button></a>
+                           <a href='update.php?id=" .$row['id']."'><button class='btn btn-primary' type='button'>Edit</button></a>
+                           <a href='delete.php?id=" .$row['id']."'><button class='btn btn-primary' type='button'>Delete</button></a>
                        </td>
                    </tr>" ;
                }
@@ -56,6 +58,8 @@
             ?>  
        </tbody>
    </table>
+
+   <a href= "create.php"><button class="btn btn-primary" type="button" >Add User</button></a>
 </div>
 
 </body>

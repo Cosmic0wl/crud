@@ -2,6 +2,7 @@
 
 require_once 'db_connect.php';
 
+
 if ($_POST) {
    $fname = $_POST['first_name'];
    $lname = $_POST['last_name'];

@@ -1,6 +1,7 @@
 <?php 
 
 require_once 'actions/db_connect.php';
+include 'registration/home.php';
 
 if ($_GET['id']) {
    $id = $_GET['id'];
@@ -23,8 +24,8 @@ if ($_GET['id']) {
 <form action ="actions/a_delete.php" method="post">
 
    <input type="hidden" name= "id" value="<?php echo $data['id'] ?>"/>
-   <button type="submit">Yes, delete it!</button>
-   <a href="index.php"><button type="button">No, go back!</button></a>
+   <button class="btn btn-primary" type="submit">Yes, delete it!</button>
+   <a href="index.php"><button class="btn btn-primary" type="button">No, go back!</button></a>
 </form>
 
 </body>

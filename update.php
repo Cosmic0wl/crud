@@ -1,6 +1,7 @@
 <?php 
 
 require_once 'actions/db_connect.php';
+include 'registration/home.php';
 
 if ($_GET['id']) {
    $id = $_GET['id'];
@@ -53,8 +54,8 @@ if ($_GET['id']) {
            </tr> 
            <tr>
                <input type = "hidden" name= "id" value= "<?php echo $data['id']?>" />
-               <td><button type = "submit">Save Changes</button></td>
-               <td><a href= "index.php">< button  type="button" >Back</button></a></td>
+               <td><button class="btn btn-primary m-2" type = "submit">Save Changes</button></td>
+               <td><a href= "index.php"><button class="btn btn-primary" type="button">Back</button></a></td>
            </tr>
        </table>
    </form >

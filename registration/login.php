@@ -61,10 +61,11 @@ if( isset($_POST['btn-login']) ) {
 
 <head>
     <title>Login & Registration System</title>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
+  <div class="container">
     <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" autocomplete="off">
         <h2>Sign In.</h2>
         <hr />
@@ -81,12 +82,13 @@ echo  $errMSG; ?>
         <span class="text-danger">
             <?php  echo $passError; ?></span>
         <hr />
-        <button type="submit" name="btn-login">Sign In</button>
+        <button class="btn btn-primary" type="submit" name="btn-login">Sign In</button>
         <hr />
         <a href="register.php">Sign Up Here...</a>
     </form>
     </div>
     </div>
+  </div>
 </body>
 
 </html>

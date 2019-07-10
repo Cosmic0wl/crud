@@ -115,11 +115,12 @@ $password = hash('sha256' , $pass);
 
 <head>
     <title>Login & Registration System</title>
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
 </head>
 
 <body>
+  <div class="container">
 
 <!-- serris code -->
     <form enctype="multipart/form-data" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" autocomplete="off">
@@ -135,7 +136,8 @@ $password = hash('sha256' , $pass);
         <?php 
   }
   ?>
-      <input type="file" size="50" maxlength="255" name="file_to_upload" value="" />
+
+      <input class="form-control-file mb-4" type="file" size="50" maxlength="255" name="file_to_upload" value="" />
       <?php echo $img ?>
         <input type="text" name="name" class="form-control" placeholder="Enter Name" maxlength="50" value="<?php echo $name ?>" />
         <span class="text-danger">
@@ -151,6 +153,7 @@ $password = hash('sha256' , $pass);
         <hr />
         <a href="login.php">Sign in Here...</a>
     </form>
+  </div>
 </body>
 
 </html>

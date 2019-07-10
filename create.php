@@ -1,3 +1,4 @@
+<?php include 'registration/home.php';?>
 <!DOCTYPE html>
 <html>
 <head>
