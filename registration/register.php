@@ -7,7 +7,29 @@ if( isset($_SESSION['user'])!="" ){
 include_once 'dbconnect.php';
 $error = false;
 if ( isset($_POST['btn-signup']) ) {
- 
+ $safeDir = __DIR__.DIRECTORY_SEPARATOR."uploads".DIRECTORY_SEPARATOR;
+        $filename = basename($_FILES['file_to_upload']['name']);
+        $ext = substr($filename, strrpos($filename, '.') + 1);
+        //check to see if upload parameter specified
+        if(($_FILES["file_to_upload"]["error"]==UPLOAD_ERR_OK) && ($ext == "jpg") && ($_FILES["file_to_upload"]["type"] == "image/jpeg") && ($_FILES["file_to_upload"]["size"] < 70000000)){
+            //check to make sure file uploaded by upload process
+            if(is_uploaded_file($_FILES["file_to_upload"]["tmp_name"])){
+                // capture filename and strip out any directory path info
+                $fn = basename($_FILES["file_to_upload"]["name"]);
+                //Build now filename with safty measures in place
+                $copyfile = $safeDir."safe_prefix_secure_info".strip_tags($fn);
+                $img="registration/uploads/safe_prefix_secure_info".strip_tags($fn);
+                //copy file to safe directory
+                if(move_uploaded_file($_FILES["file_to_upload"]["tmp_name"], $copyfile)){
+                    $message .= "<br>Successfully uploaded file $copyfile\n";
+                } else {
+                    // trap upload file handle errors
+                    $message.="Unable to upload file ".$_FILES["file_to_upload"]["name"];
+                }
+            } else {
+                $message .= "<br>File not uploaded";
+            }
+        }
  // sanitize user input to prevent sql injection
  $name = trim($_POST['name']);
 
@@ -25,6 +47,8 @@ if ( isset($_POST['btn-signup']) ) {
  $pass = trim($_POST['pass']);
  $pass = strip_tags($pass);
  $pass = htmlspecialchars($pass);
+
+ // image file
 
   // basic name validation
  if (empty($name)) {
@@ -68,7 +92,7 @@ $password = hash('sha256' , $pass);
  // if there's no error, continue to signup
  if( !$error ) {
   
-  $query = "INSERT INTO users(userName,userEmail,userPass) VALUES('$name','$email','$password')";
+  $query = "INSERT INTO registrations(userName,userEmail,userPass, image) VALUES('$name','$email','$password', '$img')";
   $res = mysqli_query($conn, $query);
   
   if ($res) {
@@ -84,7 +108,6 @@ $password = hash('sha256' , $pass);
   
  }
 
-
 }
 ?>
 <!DOCTYPE html>
@@ -92,12 +115,15 @@ $password = hash('sha256' , $pass);
 
 <head>
     <title>Login & Registration System</title>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
 </head>
 
 <body>
-    <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" autocomplete="off">
-        <h2>Sign Up.</h2>
+
+<!-- serris code -->
+    <form enctype="multipart/form-data" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" autocomplete="off">
+        <h2>Sign Up</h2>
         <hr />
         <?php
    if ( isset($errMSG) ) {
@@ -109,6 +135,8 @@ $password = hash('sha256' , $pass);
         <?php 
   }
   ?>
+      <input type="file" size="50" maxlength="255" name="file_to_upload" value="" />
+      <?php echo $img ?>
         <input type="text" name="name" class="form-control" placeholder="Enter Name" maxlength="50" value="<?php echo $name ?>" />
         <span class="text-danger">
             <?php   echo  $nameError; ?> </span>

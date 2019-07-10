@@ -1,4 +1,7 @@
-<?php require_once 'actions/db_connect.php'; ?> 
+<?php require_once 'actions/db_connect.php'; 
+  include 'registration/home.php';
+?> 
+
 
 <!DOCTYPE html>
 <html>
