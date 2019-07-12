@@ -7,6 +7,9 @@ require_once 'dbconnect.php';
 if ( isset($_SESSION['user' ])!="" ) {
  header("Location: ../index.php");
  exit;
+}elseif(isset($_SESSION['admin' ])!=""){
+   header("Location: ../index.php");
+ exit;
 }
 
 $error = false;
@@ -41,13 +44,21 @@ if( isset($_POST['btn-login']) ) {
   
   $password = hash( 'sha256', $pass); // password hashing
 
-  $res=mysqli_query($conn, "SELECT userId, userName, userPass FROM registrations WHERE userEmail='$email'" );
+  $res=mysqli_query($conn, "SELECT userId, userName, userPass, role  FROM registrations WHERE userEmail='$email'" );
   $row=mysqli_fetch_array($res, MYSQLI_ASSOC);
   $count = mysqli_num_rows($res); // if uname/pass is correct it returns must be 1 row 
   
   if( $count == 1 && $row['userPass' ]==$password ) {
-   $_SESSION['user'] = $row['userId'];
+    if($row['role']=='admin'){
+      $_SESSION['admin'] = $row['userId'];
+      header("Location: ../index.php");
+    } else {
+
+      $_SESSION['user'] = $row['userId'];
    header( "Location: ../index.php");
+
+    }
+   
   } else {
    $errMSG = "Incorrect Credentials, Try again..." ;
   }
